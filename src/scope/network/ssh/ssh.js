@@ -106,7 +106,7 @@ export default class SSH implements Network {
             if (commandName === '_put') res = res.replace(payload, '');
             logger.debug(`ssh: returned with code: ${code}, signal: ${signal}.`);
             this.connection.end();
-            return code && code !== 0 ?
+            return !code || code !== 0 ?
               reject(errorHandler(code, err)) :
               resolve(clean(res));
           })
